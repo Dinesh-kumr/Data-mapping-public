@@ -39,7 +39,7 @@ attributes: (array of strings) List of attribute names representing the input da
   },
 ];**
 
-**outputDataList**
+## outputDataList
 The outputDataList array represents the output data fields that will be mapped to. Each object in the array should have the following structure:
 
 title: (string) The title or label for this set of output data fields.
