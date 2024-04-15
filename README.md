@@ -1,27 +1,82 @@
-# DataMapping
+# DataMapping:
+Data mapping is the process of matching fields from one database to another. It's the first step to facilitate data migration, data integration, and other data management tasks.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
+## Installation
+You can install the data-mapping-lib package using npm:
+**` npm install data-mapping-lib `**
+## Usage
+# Importing the Component
+Import the DataMappingComponent into your Angular project:
+**` import { DataMappingComponent } from 'data-mapping-lib'; `**
 
-## Development server
+## Using the Component
+Add the <data-mapping> component in your Angular template:
+**' <data-mapping [inputDataList]="inputDataList" [outputDataList]="outputDataList" [mappingList]="mappingList"></data-mapping> `**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Component Inputs
+**inputDataList: An array of objects representing the input data fields.
+outputDataList: An array of objects representing the output data fields.
+mappingList: An array of objects representing the mappings between input and output fields.**
 
-## Code scaffolding
+## inputDataList
+The inputDataList array represents the input data fields that will be mapped. Each object in the array should have the following structure:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+title: (string) The title or label for this set of input data fields.
+isExpand: (boolean) A flag indicating whether this set of fields should be initially expanded or collapsed in the UI.
+attributes: (array of strings) List of attribute names representing the input data fields.
 
-## Build
+## Example:
+**inputDataList: any[] = [
+  {
+    title: "Customer",
+    isExpand: false,
+    attributes: ["first_name %7", 'familyName', 'email', 'gender', "Dob"]
+  },
+  {
+    title: "Customer2",
+    isExpand: true,
+    attributes: ['first_name', 'familyName', 'email']
+  },
+];**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**outputDataList**
+The outputDataList array represents the output data fields that will be mapped to. Each object in the array should have the following structure:
 
-## Running unit tests
+title: (string) The title or label for this set of output data fields.
+isExpand: (boolean) A flag indicating whether this set of fields should be initially expanded or collapsed in the UI.
+attributes: (array of strings) List of attribute names representing the output data fields.
+## Example:
+**outputDataList: any[] = [
+  {
+    title: "CDP_Customer",
+    isExpand: true,
+    attributes: ['firstname', 'lastname', 'middlename', 'name', 'phone', 'emailAddress']
+  },
+  {
+    title: "CDP_2",
+    isExpand: false,
+    attributes: ['first_name', 'familyName', 'email', 'gender']
+  }
+];**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## mappingList:
+The mappingList array represents the mappings between input and output data fields. Each object in the array should have the following structure:
+titleKey: (string) The key or identifier for the output data set to be mapped.
+attributes: (object) Key-value pairs where the key is the output data field name and the value is the corresponding input data field path.
+## Example:
+**mappingList: any[] = [
+ {
+   titleKey: "CDP_Customer",
+    attributes: {
+      firstname: "Customer.first_name %7",
+      lastname: "Customer.familyName",
+      emailAddress: "Customer.email"
+    }
+  },
+  {
+    titleKey: "CDP_2",
+    attributes: {
+      first_name: "Customer2.first_name"
+    }
+  }
+];**
