@@ -1,0 +1,87 @@
+<section class="h-100">
+  <div id="outerContent" (pointermove)="creatingLine($event)" (pointerup)="removingLine()" (click)="deletedDetail = {};"
+    class="relative z-index-1 h-100 overflow-hidden">
+    <svg class="absolute z-index-2" [style.height]="(this.outerContainer.bottom - this.outerContainer.top)"
+      [style.width]="(this.outerContainer.right - this.outerContainer.left)">
+      <rect *ngIf="pathDetail.rectangle" [attr.x]="(pathDetail.rectangle.x)" [attr.y]="(pathDetail.rectangle.y)"
+        width="13" height="9" class="rectangle" />
+      <path *ngIf="pathDetail.pathData" class="movable-line" [attr.d]="pathDetail.pathData"></path>
+      <polygon *ngIf="pathDetail.arrowPath" points="0,0 10,5 0,10" class="arrow"
+        [style.transform]="'translate(' + (pathDetail.arrowPath.x) + 'px, ' + (pathDetail.arrowPath.y )+ 'px)'" />
+      <ng-container *ngFor="let pathData of pathDataList; let index = index">
+        <g class="line" [ngClass]="{'bold-line': deletedDetail.index === index}">
+          <rect [attr.x]="pathData.rectangle.x" [attr.y]="pathData.rectangle.y" width="13" height="9"
+            class="rectangle" />
+          <path [attr.d]="pathData.path" [attr.id]="pathData.id" (pointerdown)="getDeletedDetail(pathData.key, index)">
+          </path>
+          <polygon points="0,0 10,5 0,10" class="arrow"
+            [style.transform]="'translate(' + (pathData.arrowPath.x) + 'px, ' + (pathData.arrowPath.y )+ 'px)'"
+            [ngClass]="{'bold-arrow': deletedDetail.index === index}" />
+        </g>
+      </ng-container>
+    </svg>
+    <div class="d-flex justify-space-around">
+      <div>
+        <div *ngFor="let data of dataList; let index = index">
+          <div *ngIf="data.type === 'INPUT'" class="box  cursor-all-scroll d-inline-flex f-col z-index-2 relative"
+            [ngClass]="{'z-index-3': draggedElement.dragIndex === index, 'hidden-box': !data.isExpand,'border': data.isExpand}"
+            [style.transform]="'translate(' + (data.position?.x || 0) + 'px, ' + (data.position?.y || 0)+ 'px)'"
+            (pointerdown)="onDragStart($event, index)">
+            <div class="heading cursor-all-scroll">
+              <h5 class="title overflow-hidden">{{data.title}}</h5>
+              <div [attr.id]="data.id" class="fl-right curser-pointer">
+                <svg class="width-1-5" *ngIf="!data.isExpand" (click)="boxVisibility($event,data)" viewBox="0 0 512 512">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="48" d="M112 184l144 144 144-144" />
+                </svg>
+                <svg class="width-1-5" *ngIf="data.isExpand" (click)="boxVisibility($event,data)" viewBox="0 0 512 512">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="48" d="M112 328l144-144 144 144" />
+                </svg>
+              </div>
+            </div>
+            <div *ngFor="let attr of data.attributes" class="body d-flex align-center"
+              [ngClass]="{'hidden-body': !data.isExpand}">
+              <h5 class="label fl-left overflow-hidden">{{attr.label}}</h5>
+              <div class="source-socket-icon absolute d-flex align-center justify-center" [attr.id]="attr.id"
+                (pointerdown)="selectedPosition.startPosition = attr.key;">
+                <div id="rectangle" class="rectangle-icon"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div *ngFor="let data of dataList; let index = index">
+          <div *ngIf="data.type === 'OUTPUT'" class="box cursor-all-scroll d-inline-flex f-col z-index-2 relative"
+            [ngClass]="{'z-index-3': draggedElement.dragIndex === index, 'hidden-box': !data.isExpand ,'border': data.isExpand}"
+            [style.transform]="'translate(' + (data.position?.x || 0) + 'px, ' + (data.position?.y || 0)+ 'px)'"
+            (pointerdown)="onDragStart($event, index)">
+            <div class="heading cursor-all-scroll">
+              <div class="fl-left curser-pointer" [attr.id]="data.id">
+                <svg class="width-1-5" *ngIf="!data.isExpand" (click)="boxVisibility($event,data)" viewBox="0 0 512 512">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="48" d="M112 184l144 144 144-144" />
+                </svg>
+                <svg class="width-1-5" *ngIf="data.isExpand" (click)="boxVisibility($event,data)" viewBox="0 0 512 512">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="48" d="M112 328l144-144 144 144" />
+                </svg>
+              </div>
+              <h5 class="title overflow-hidden">{{data.title}}</h5>
+            </div>
+            <div *ngFor="let attr of data.attributes" class="body d-flex align-center"
+              [ngClass]="{'hidden-body': !data.isExpand}">
+              <div class="destination-socket-icon absolute d-flex align-center justify-center" [attr.id]="attr.id"
+                (pointerup)="selectedPosition.endPosition = attr.key"
+                (pointerdown)="selectedPosition.remapPosition=attr.key">
+                <div id="arrow" class="arrow-icon"></div>
+              </div>
+              <h5 class="label fl-left overflow-hidden">{{attr.label}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,191 @@
+.box {
+  width: 310px;
+  margin: 15px 0;
+
+  .heading {
+    background: rgba(100, 149, 237, 1);
+    padding: 5px;
+    color: white;
+
+    .title {
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+      font-size: 16px;
+      text-align: center;
+      width: 90%;
+    }
+  }
+
+  .body {
+    padding: 10px;
+
+    .label {
+      font-size: 14px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: "Roboto";
+      text-align: left;
+      width: 100%;
+    }
+
+    .source-socket-icon {
+      right: -19px;
+
+      &:hover {
+        background: #C4DEFB;
+      }
+
+      .rectangle-icon {
+        width: 12px;
+        height: 8px;
+        background: rgba(147, 147, 147, 0.5);
+      }
+    }
+
+    .destination-socket-icon {
+      left: -19px;
+
+      &:hover {
+        background: #C4DEFB;
+      }
+
+      .arrow-icon {
+        margin: 3px 0px;
+        border-top: 5px solid transparent;
+        border-left: 10px solid rgba(147, 147, 147, 0.5);
+        border-bottom: 5px solid transparent;
+      }
+    }
+  }
+
+  .hidden-body {
+    visibility: hidden;
+  }
+}
+
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.f-col {
+  flex-direction: column;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+h5 {
+  margin: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.z-index-3 {
+  z-index: 3;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.rectangle,
+.arrow {
+  fill: rgba(100, 149, 237, 1);
+}
+
+.arrow,
+.line,
+.movable-line {
+  stroke-width: 2px;
+}
+
+.line,
+.movable-line {
+  stroke: rgba(100, 149, 237, 1);
+  fill: none;
+}
+
+.line:hover,
+.bold-line {
+  cursor: pointer;
+  stroke-width: 4px;
+}
+
+.bold-line {
+  stroke: rgba(70, 69, 151, 1);
+}
+
+.bold-arrow {
+  fill: rgba(70, 69, 151, 1);
+}
+
+.hidden-box {
+  background: none;
+  cursor: default;
+}
+
+.cursor-all-scroll {
+  cursor: all-scroll;
+}
+
+.curser-pointer {
+  cursor: pointer;
+}
+
+.fl-right {
+  float: right;
+}
+
+.fl-left {
+  float: left;
+}
+
+.source-socket-icon,
+.destination-socket-icon {
+  width: 27px;
+  height: 27px;
+  border-radius: 13.5px;
+  cursor: grab;
+}
+
+.border {
+  border: 1px solid rgb(147, 145, 145);
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.width-1-5 {
+  width: 1.5rem;
+}
